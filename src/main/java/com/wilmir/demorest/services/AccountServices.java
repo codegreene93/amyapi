@@ -2,8 +2,6 @@ package com.wilmir.demorest.services;
 
 
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import com.wilmir.demorest.database.DatabaseCustomer;
 import com.wilmir.demorest.models.Account;
@@ -14,7 +12,7 @@ public class AccountServices {
 	Customer cust = new Customer();
 
 	private Map <Integer, Account> accounts = DatabaseCustomer.getAccount();
-	Map <Integer, Customer> customers = DatabaseCustomer.getCustomer();
+	private Map <Integer, Customer> customers = DatabaseCustomer.getCustomer();
 	
 	public AccountServices() {
 		Account acc1 = new Account(1, 001,"Chris", 456, "Debit Acc", 156);
@@ -24,10 +22,11 @@ public class AccountServices {
 		accounts.put(acc1.getAccountNo(), acc1);
 		accounts.put(acc2.getAccountNo(), acc2);
 		accounts.put(acc3.getAccountNo(), acc3);
-	}
-	
-	public List<Account> getAccount(){
-		return new ArrayList<Account>(accounts.values());
+		
+		for(Customer customer:customers.values()) {
+			customer.setAccounts(accounts);
+		}
+		
 	}
 	
 	public Map<Integer, Account> getAccounts(){
@@ -35,10 +34,13 @@ public class AccountServices {
 	}
 	
 	public Map<Integer, Account> getCustomer(int customerID) {
-		Customer cust =  customers.get(customerID);
-	
-		return cust.getAccounts();
 		
+		System.out.println(customerID);
+		Customer cust =  customers.get(customerID);
+		System.out.println(cust);
+		
+		
+		return cust.getAccounts();
 	}
 	
 	public Account getAccount(int accountNo) {
@@ -55,8 +57,8 @@ public class AccountServices {
 
 	
 	//Add a method to remove an account by customer name
-	public Account removeAccount(int customerID) {
-		return accounts.remove(customerID);
+	public Account removeAccount(int customerId) {
+		return accounts.remove(customerId);
 	}
 }
 

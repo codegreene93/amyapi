@@ -69,5 +69,10 @@ public class CustomersResources {
 		Customer customer = customerServices.deleteCustomer(customerID);
 		return Response.status(Status.OK).entity(customer).build();	
 	}
+	
+	@Path("/{customerId}/accounts")
+	 public AccountResources getAccountResources() {
+		return new AccountResources();
+	}
 
 }
