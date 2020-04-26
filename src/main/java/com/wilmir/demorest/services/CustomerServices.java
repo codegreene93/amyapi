@@ -50,16 +50,19 @@ public class CustomerServices {
 	}
 	
 	public Customer getLogin(String email, String password) {
-		Customer customer = new Customer();
 		
-		String customerEmail =  customer.getEmail();
-		String customerPassword = customer.getPassword();
 		
-		if(customerEmail.equalsIgnoreCase(email) && customerPassword.equals(password)){
-			return customer;
-		
-	}
-		return customer;
+		for(Customer customer :customers.values()) {
+			String customerEmail =  customer.getEmail();
+			String customerPassword = customer.getPassword();
+			
+			if(customerEmail.equalsIgnoreCase(email) && customerPassword.equals(password)){
+				return customer;
+			
+			}
+			
+		}
 	
+		return null;
 	}
 }
